@@ -1,0 +1,31 @@
+{% extends "http_requests_viewer/base.html" %}
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Target</th>
+            <th scope="col">Note</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for target in targets %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{target.url}}</td>
+            <td>{{target.note}}</td>
+            <td>
+                <a href="{% url 'http_requests_viewer:target_detail' target.pk %}" target="_blank">
+                    <button type="button" class="btn btn-info">
+                        Detail
+                    </button>
+                </a>
+            </td>
+            <td>{% include "http_requests_viewer/delete_form.html" with delete_viewname="http_requests_viewer:target_delete" slug=target.pk %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

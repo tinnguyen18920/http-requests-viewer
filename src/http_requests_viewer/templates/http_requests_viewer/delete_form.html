@@ -1,0 +1,9 @@
+{% load bootstrap4 %}
+<form action="{% url delete_viewname slug %}" method="post" class="form">
+  {% csrf_token %}
+  {% buttons %}
+    <button type="submit" class="btn btn-danger">
+      Delete
+    </button>
+  {% endbuttons %}
+</form>

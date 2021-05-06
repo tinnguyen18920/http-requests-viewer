@@ -1,0 +1,22 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    {% block head_end %}
+    {% endblock head_end %}
+</head>
+<body>
+    {% include 'http_requests_viewer/nav.html' %}
+    <div class="container mb-5">
+        {% bootstrap_messages %}
+        {% block content %}{% endblock content %}    
+    </div>
+    {% block body_end %}
+
+    {% endblock body_end %}
+</body>
+</html>

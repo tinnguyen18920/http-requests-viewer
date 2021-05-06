@@ -1,0 +1,50 @@
+{% extends "http_requests_viewer/base.html" %}
+
+{% load http_requests_viewer %}
+
+{% block content %}
+<dl class="row">
+    <dt class="col-sm-3">Request URL</dt>
+    <dd class="col-sm-9 text-break">{{request.url | clean_url}}</dd>
+
+    <dt class="col-sm-3">Request Method</dt>
+    <dd class="col-sm-9 text-break">{{request.method}}</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9 text-break">        
+        {{request.response.status_code}} {{request.response.reason}}
+    </dd>
+
+    <dt class="col-sm-3">Params</dt>
+    <dd class="col-sm-9">
+        <p>{{request.params}}</p>
+    </dd>
+    
+    <dt class="col-sm-3">Request Body</dt>
+    <dd class="col-sm-9 text-break">{{request.body}}</dd>
+    
+    <dt class="col-sm-3">Request Headers</dt>
+    <dd class="col-sm-9">
+        {% for header in request.headers %}
+            <div>
+                <span class="font-weight-bold">{{header.0}}</span> : 
+                <span class="text-break">{{header.1}}</span>
+            </div>
+        {% endfor %}
+    </dd>
+    
+    <dt class="col-sm-3">Response</dt>
+    <dd class="col-sm-9"><a href="{% url 'http_requests_viewer:request_response' request.target_id request.id %}" target="_blank">Response</a><dd>
+
+    <dt class="col-sm-3">Response Headers</dt>
+    <dd class="col-sm-9">
+        {% for header in request.response.headers %}
+            <div>
+                <span class="font-weight-bold">{{header.0}}</span> : 
+                <span class="text-break">{{header.1}}</span>
+            </div>
+        {% endfor %}
+    </dd>
+
+</dl>
+{% endblock content %}

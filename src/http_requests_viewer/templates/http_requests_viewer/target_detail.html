@@ -1,0 +1,61 @@
+{% extends "http_requests_viewer/base.html" %}
+
+{% load http_requests_viewer %}
+
+{% block head_end %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+{% endblock head_end %}
+{% block content %}
+<div>
+    <div>{{target.url}}</div>
+    <div>{{target.agent}}</div>
+    <div>
+        {% for ex_host in target.exclude_hosts.all %}<span>{{ex_host}},</span>{% endfor %}        
+    </div>
+    <div>{{target.note}}</div>
+    <div>{{target.created_at}}</div>
+</div>
+<hr>
+<table id="table" data-filter-control="true" class="mb-5">
+    <thead>
+        <tr>
+            <th data-field="method" data-filter-control="select">Method</th>
+            <th data-field="hostname" data-filter-control="input">Request host</th>
+            <th data-field="endpoint" data-filter-control="input">Request endpoint</th>
+            <th data-field="req_content_type" data-filter-control="select">Request content type</th>
+            <th data-field="status" data-filter-control="select">Status</th>
+            <th data-field="res_content_type" data-filter-control="select">Response content type</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in target.http_requests %}
+        <tr>
+            <td>{{request.method}}</td>
+            <td class="text-break" style="max-width: 244px;">{{request.url|hostname}}</td>
+            <td class="text-break" style="max-width: 244px;">{{request.url|path}}</td> 
+            <td>{{request.content_type.request}}</td>
+            <td>{{request.response.status_code}} {{request.response.reason}}</td>
+            <td>{{request.content_type.response}}</td>
+            <td>
+                <a href="{% url 'http_requests_viewer:request_detail' target.pk request.id %}" target="_blank">
+                    <button type="button" class="btn btn-info">
+                        Detail
+                    </button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+
+{% block body_end %}
+<script>
+  $(function() {
+    $('#table').bootstrapTable()
+  })
+</script>
+{% endblock body_end %}

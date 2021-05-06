@@ -1,0 +1,10 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "user-agents>=2.2.0",
+    "selenium>=3.141.0",
+    "selenium-wire>=4.2.4",
+    "django-bootstrap4>=3.0.1"
+]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,33 @@
+{% extends "http_requests_viewer/base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+{# Display a form #}
+<form method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">#</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in objects %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{obj}}</td>
+        <td>{% include "http_requests_viewer/delete_form.html" with delete_viewname=delete_viewname slug=obj.pk %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
+

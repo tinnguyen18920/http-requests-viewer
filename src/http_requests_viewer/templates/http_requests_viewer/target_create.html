@@ -1,0 +1,14 @@
+{% extends "http_requests_viewer/base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+{# Display a form #}
+<form method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
+</form>
+{% endblock content %}
