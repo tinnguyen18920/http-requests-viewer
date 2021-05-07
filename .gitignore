@@ -132,3 +132,4 @@ dmypy.json
 
 # Chrome profile
 http_requests_viewer/profile
+src/http_requests_viewer/profile
